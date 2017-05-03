@@ -1,26 +1,109 @@
 body
   background-color: #001330
-h1
-  color red
-  width 100%
-  text-align: center;
-#index-container
-  display: flex;
-  flex-flow: column;
-  align-items: center
-a
   margin 0
-  width 90%
-figure
-  position: relative;
-  cursor: pointer;
-  img
+#home
+  .container
+    display: flex;
+    flex-flow: column;
+    align-items: center
+  figure
+    position: relative;
+    cursor: pointer;
+    img
+      width 100%
+      height auto
+    figcaption
+      width: 100%
+      position absolute
+      top 50%
+      color cyan
+      text-align: center;
+      font-size: 10vw
+  .menu
+    position: absolute;
+    bottom: 4px
+    left 0
+    margin 0
     width 100%
-    height auto
-  figcaption
+    height 50px
+    display: none
+    background-color: rgba(black, 0.4)
+    a
+      width 50%
+      color white
+      text-decoration: none
+      text-align: center;
+      img
+        width 50px
+        height 50px
+      &:hover
+        background-color: rgba(black, 0.7)
+  &:hover
+    .menu
+      display: flex
+#view
+  .top-bar
+    position: absolute;
+    top 0
+    left 0
+    z-index 2
     width: 100%
+    height 40px
+    margin 0
+    display: flex;
+    justify-content: space-around;
+    color white
+    background-color: rgba(black, 0.6)
+    a
+      display flex
+      justify-content: center;
+      align-items: center
+      z-index: 5
+      width 40px
+      height 100%
+      color white
+      text-decoration: none;
+      font-weight: bold
+      font-size: 26px
+      font-family: sans-serif;
+      &:hover
+        background-color: #4B5F5F
+  figure
+    margin: 0
+    position: relative
+    img
+      width 100vw
+      height auto
+    figcaption
+      position: absolute;
+      bottom: 2px
+      left 0
+      width 100%
+      background-color: rgba(black, 0.4)
+      p
+        padding: 2px
+        text-align: center;
+        color white
+  #arrows
     position absolute
-    top 50%
-    color cyan
-    text-align: center;
-    font-size: 10vw
+    top 0
+    left 0
+    z-index: 1
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width 100%
+    height 100%
+    .arrow
+      width 50px
+      height: 50px
+      padding 5px
+      display flex
+      justify-content: center
+      align-items: center
+      background-color: #4B5F5F
+      border-radius 50%
+      font-size: 26px
+      color white
+      cursor pointer
+      font-family sans-serif

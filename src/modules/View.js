@@ -1,29 +1,38 @@
 import React from 'react';
+import {Link, Switch, Route} from 'react-router-dom';
 const titles = ['nov', 'dec', 'jan', 'feb'];
 
 const TopBar = (props) => (
-  <div>
-    <a>Back</a>
+  <div className="top-bar">
+    <Link to="/">&#8962;</Link>
     <p>{props.count}</p>
-    <a>Grid</a>
+    <Link to={"/index/" + props.month}><img src="./icons/grid.svg"/></Link>
   </div>
 )
 
 const Navigation = () => (
-  <div>
-    <div id="left">&#8592;</div>
-    <div id="right">&#8594;</div>
+  <div id="arrows">
+    <div id="left" className="arrow">&#8592;</div>
+    <div id="right" className="arrow">&#8594;</div>
   </div>
 )
-export default (props) =>
+const Content = ({match}) => (
+  <div id="view">
+    <TopBar count="1" month={match.params.month}/>
+    <figure>
+      <img src="./pics/1.jpg"></img>
+      <figcaption>
+        <p>description</p>
+      </figcaption>
+      <Navigation/>
+    </figure>
+  </div>
+)
+export default () =>
     (
-      <div className="container">
-        <TopBar count="1"/>
-        <figure>
-          <img src="./pics/1.jpg"></img>
-          <figcaption>description</figcaption>
-        </figure>
-        <Navigation/>
-      </div>
+      <Switch>
+        <Route exact path="/view" component={() => <h1>View</h1>}/>
+        <Route path="/view/:month" component={Content}/>
+      </Switch>
     )
 ;
