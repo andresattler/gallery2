@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, Switch, Route} from 'react-router-dom';
-const titles = ['nov', 'dec', 'jan', 'feb'];
+const months = ['nov', 'dec', 'jan', 'feb'];
+import NotFound from './NotFound.js';
 
 const TopBar = (props) => (
   <div className="top-bar">
@@ -16,22 +17,29 @@ const Navigation = () => (
     <div id="right" className="arrow">&#8594;</div>
   </div>
 )
-const Content = ({match}) => (
-  <div id="view">
-    <TopBar count="1" month={match.params.month}/>
-    <figure>
-      <img src="./pics/1.jpg"></img>
-      <figcaption>
-        <p>description</p>
-      </figcaption>
-      <Navigation/>
-    </figure>
-  </div>
-)
+const Content = ({match}) => {
+  if (months.indexOf(match.params.month) != -1)
+  {return (
+    <div id="view">
+      <TopBar count="1" month={match.params.month}/>
+      <figure>
+        <img src="./pics/1.jpg"></img>
+        <figcaption>
+          <p>description</p>
+        </figcaption>
+        <Navigation/>
+      </figure>
+    </div>
+  )
+}else{
+  return <NotFound/>
+}
+
+}
 export default () =>
     (
       <Switch>
-        <Route exact path="/view" component={() => <h1>View</h1>}/>
+        <Route exact path="/view" component={NotFound}/>
         <Route path="/view/:month" component={Content}/>
       </Switch>
     )
