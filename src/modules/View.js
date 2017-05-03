@@ -11,10 +11,10 @@ const TopBar = (props) => (
   </div>
 )
 
-const Navigation = () => (
+const Navigation = (props) => (
   <div id="arrows">
-    <div id="left" className="arrow">&#8592;</div>
-    <div id="right" className="arrow">&#8594;</div>
+    <Link to={`/view/${props.month}/${props.nr-1}`} id="left" className="arrow">&#8592;</Link>
+    <Link to={`/view/${props.month}/${props.nr+1}`} id="right" className="arrow">&#8594;</Link>
   </div>
 )
 const Content = ({match}) => {
@@ -22,13 +22,16 @@ const Content = ({match}) => {
   {return (
     <div id="view">
       <TopBar count="1" month={match.params.month}/>
-      <figure>
-        <img src="./pics/1.jpg"></img>
-        <figcaption>
-          <p>description</p>
-        </figcaption>
-        <Navigation/>
-      </figure>
+        <Route path="/view/:month/:nr" component={({match}) => (
+          <figure>
+            <img src={`./pics/${match.params.nr}.jpg`}/>
+            <figcaption>
+              <p>{match.params.nr}</p>
+            </figcaption>
+            <Navigation month={match.params.month} nr={parseInt(match.params.nr)}/>
+          </figure>
+          )}/>
+
     </div>
   )
 }else{
