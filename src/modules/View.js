@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, Switch, Route} from 'react-router-dom';
-const months = ['nov', 'dec', 'jan', 'feb'];
+import config from '../config.toml';
 import NotFound from './NotFound.js';
 
 const TopBar = (props) => (
@@ -18,13 +18,13 @@ const Navigation = (props) => (
   </div>
 )
 const Content = ({match}) => {
-  if (months.indexOf(match.params.month) != -1)
+  if (config.titles.indexOf(match.params.month) != -1)
   {return (
     <div id="view">
       <TopBar count="1" month={match.params.month}/>
         <Route path="/view/:month/:nr" component={({match}) => (
           <figure>
-            <img src={`./pics/${match.params.nr}.jpg`}/>
+            <img src={`./pics/${match.params.month}/${match.params.nr}.jpg`}/>
             <figcaption>
               <p>{match.params.nr}</p>
             </figcaption>
