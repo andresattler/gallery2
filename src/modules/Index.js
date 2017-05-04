@@ -2,45 +2,32 @@ import React from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
 import NotFound from './NotFound.js';
 import loadData from '../loadData.js';
-const months = ['nov', 'dec', 'jan', 'feb'];
-class Content extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {tumbnails: []};
-    this.title = this.props.match.params.title;
+import config from '../config.toml'
+
+const Content = ({match}) => {
+  const index = config.titles.indexOf(match.params.title);
+  const length = config.lengths[index];
+  if (index != -1) {
+    return (
+      <div id="index">
+        <header>
+          <Link to="/">&#8962;</Link>
+          <h1>{match.params.title}</h1>
+        </header>
+        <main>
+          {
+            Array.from(new Array(length),(val, i) => (
+              <Link key={i} to={`/view/${match.params.title}/${i+1}`}>
+                <img src={`/pics/${match.params.title}/${i+1}.jpg`}/>
+              </Link>
+            ))
+          }
+        </main>
+      </div>
+    )
+  }else {
+    return <NotFound/>
   }
-  componentDidMount() {
-    console.log(this.title)
-    loadData(this.title).then((data) => {
-      let arr = [];
-      for (let i = 1; i <= data.length; i++){
-        arr.push((
-          <Link key={i} to={`/view/${this.title}/${i}`}>
-            <img src={`/pics/${this.title}/${i}.jpg`}/>
-          </Link>
-        ))
-      };
-      this.setState({thumbnails: arr})
-      console.log(arr);
-    });
-  }
-    render() {
-      if (months.indexOf(this.title) != -1) {
-        return (
-          <div id="index">
-            <header>
-              <Link to="/">&#8962;</Link>
-              <h1>{this.title}</h1>
-            </header>
-            <main>
-              {this.state.thumbnails}
-            </main>
-          </div>
-        )
-      }else {
-        return <NotFound/>
-      }
-    }
 }
 
 export default class extends React.Component {
