@@ -13,12 +13,18 @@ const TopBar = (props) => (
 
 const Navigation = (props) => (
   <div id="arrows">
-    <Link to={`/view/${props.month}/${props.nr-1}`} id="left" className="arrow">&#8592;</Link>
-    <Link to={`/view/${props.month}/${props.nr+1}`} id="right" className="arrow">&#8594;</Link>
+    { props.nr > 1 && (
+      <Link to={`/view/${props.month}/${props.nr-1}`} id="left" className="arrow">&#8592;</Link>
+    )}
+    { props.nr < props.length && (
+      <Link to={`/view/${props.month}/${props.nr+1}`} id="right" className="arrow">&#8594;</Link>
+    )}
   </div>
 )
 const Content = ({match}) => {
-  if (config.titles.indexOf(match.params.month) != -1)
+  const index = config.titles.indexOf(match.params.month);
+  const length = config.lengths[index];
+  if (index != -1)
   {return (
     <div id="view">
       <TopBar count="1" month={match.params.month}/>
@@ -28,7 +34,7 @@ const Content = ({match}) => {
             <figcaption>
               <p>{match.params.nr}</p>
             </figcaption>
-            <Navigation month={match.params.month} nr={parseInt(match.params.nr)}/>
+            <Navigation month={match.params.month} nr={parseInt(match.params.nr)} length={length}/>
           </figure>
           )}/>
 
