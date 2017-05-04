@@ -54,13 +54,24 @@ const Content = ({match}) => {
   {return (
     <div id="view">
       <TopBar count="1" title={match.params.title}/>
-        <Route path="/view/:title/:nr" component={({match}) => (
+        <Route path="/view/:title/:nr" component={({match, history}) => {
+          const nr = parseInt(match.params.nr);
+          function keySlide(e) {
+            if(e.key =="ArrowLeft" && nr>1){
+              history.push(`/view/${match.params.title}/${nr-1}`);
+            }else if(e.key =="ArrowRight" && nr<length){
+              history.push(`/view/${match.params.title}/${nr+1}`);
+            };
+            document.removeEventListener('keydown', keySlide);
+          };
+          document.addEventListener('keydown', keySlide);
+          return (
           <figure>
-            <img src={`./pics/${match.params.title}/${match.params.nr}.jpg`}/>
-            <Description title={match.params.title} nr={match.params.nr}/>
-            <Navigation title={match.params.title} nr={parseInt(match.params.nr)} length={length}/>
+            <img src={`./pics/${match.params.title}/${nr}.jpg`}/>
+            <Description title={match.params.title} nr={nr}/>
+            <Navigation title={match.params.title} nr={nr} length={length}/>
           </figure>
-          )}/>
+        )}}/>
 
     </div>
   )
