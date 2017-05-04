@@ -1,7 +1,6 @@
 import React from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
 import NotFound from './NotFound.js';
-import loadData from '../loadData.js';
 import config from '../config.toml'
 
 const Content = ({match}) => {
