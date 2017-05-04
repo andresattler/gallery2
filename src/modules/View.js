@@ -31,7 +31,17 @@ class Description extends React.Component {
   componentDidMount() {
     loadData(this.props.title).then((data) => {
       if (data[this.props.nr] !=undefined){
-        this.setState({description: data[this.props.nr]})
+        const smileys = {
+          ':D' : '\😀\uFE0F',
+          ':smile': '🙂',
+          ':tongue' : '\😜\uFE0F',
+          ':wink' : '\😉\uFE0F',
+          ':sunglass' : '\😎\uFE0F'
+        }
+        let description = data[this.props.nr];
+        const re = new RegExp(Object.keys(smileys).join('|'), 'gi');
+        description = description.replace(re, (match) => smileys[match]);
+        this.setState({description: description})
       }
     })
   };
