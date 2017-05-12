@@ -7,7 +7,7 @@ import loadData from '../loadData.js';
 const TopBar = (props) => (
   <div className="top-bar">
     <Link to="/">&#8962;</Link>
-    <p>{props.count}</p>
+    <p>{props.title}</p>
     <Link to={"/index/" + props.title}><img src="./icons/grid.svg"/></Link>
   </div>
 );
@@ -60,6 +60,10 @@ class Description extends React.Component {
 const Content = ({match}) => {
   const index = config.titles.indexOf(match.params.title);
   const length = config.lengths[index];
+  for(var i =2; i<15; i++){
+    let img= new Image();
+    img.src = `./pics/${match.params.title}/${i}.jpg`;
+  };
   if (index != -1)
   {return (
     <div id="view">
@@ -75,6 +79,8 @@ const Content = ({match}) => {
             document.removeEventListener('keydown', keySlide);
           };
           document.addEventListener('keydown', keySlide);
+          let nextImg = new Image();
+          nextImg.src = `./pics/${match.params.title}/${nr+15}.jpg`;
           return (
           <figure>
             <img src={`./pics/${match.params.title}/${nr}.jpg`}/>
